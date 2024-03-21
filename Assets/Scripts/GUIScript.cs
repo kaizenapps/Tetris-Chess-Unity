@@ -39,7 +39,7 @@ public class GUIScript : MonoBehaviour
     private Rect totalRowRect;
     private Rect twoRowRect;
     private static bool autoPlayEnabled = true;
-    private static float speedHSliderValue = 1;
+    private static float speedHSliderValue = 1f;
 
     // ReSharper disable once UnusedMember.Local
     private void Start()
@@ -92,7 +92,7 @@ public class GUIScript : MonoBehaviour
         }
 
         GUI.Box(this.statsBoxRect, string.Empty);
-        autoPlayEnabled = GUI.Toggle(this.autoplayRect, autoPlayEnabled, string.Format("Auto play {0}", autoPlayEnabled ? "ON" : "OFF"));
+        //autoPlayEnabled = GUI.Toggle(this.autoplayRect, autoPlayEnabled, string.Format("Auto play {0}", autoPlayEnabled ? "ON" : "OFF"));
         this.avgRowsPerMin = this.rowscleared / this.time * 60;
         GUI.Label(this.timeRunningRect, "Time Running: " + PrettyTime((int)this.time));
         GUI.Label(this.oneRowRect, "1 Rows: " + this.oneRowsCleared);
@@ -106,8 +106,8 @@ public class GUIScript : MonoBehaviour
         GUI.Label(this.avgRowRect, "Avg rows per min: " + (int)this.avgRowsPerMin);
 
         GUI.Box(this.settingsBoxRect, string.Empty);
-        speedHSliderValue = GUI.HorizontalSlider(this.speedRect, speedHSliderValue, 1.0f, 200.0f);
-        GUI.Label(this.speedLabelRect, "Speed: " + (int)speedHSliderValue);
+        //speedHSliderValue = GUI.HorizontalSlider(this.speedRect, speedHSliderValue, 1.0f, 5.0f);
+        //GUI.Label(this.speedLabelRect, "Speed: " + (int)speedHSliderValue);
         GUI.Label(this.creditRect, "\u00a9 Christoffer Bo Petersen");
         GUI.Label(this.creditwwwRect, "www.cb-p.dk");
     }

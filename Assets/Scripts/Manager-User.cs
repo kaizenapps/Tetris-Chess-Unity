@@ -11,11 +11,11 @@ using UnityEngine.SceneManagement;
 
 using Move = Tetris.Engine.Move;
 
-public class Manager : MonoBehaviour
+public class ManagerUser : MonoBehaviour
 {
     private Engine ai;
     private GameManager gameManager;
-    private GUIScript gui;
+    private GUIScriptUser gui;
 
     private int blockSpawned = -1;
     private bool gameover;
@@ -29,7 +29,7 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
-        this.gui = this.GetComponent<GUIScript>();
+        this.gui = this.GetComponent<GUIScriptUser>();
         this.gameManager = new GameManager(20, 10);
         this.ai = new Engine(
                 new TetrisAi(
@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
             this.Blocks[i] = new GameObject[10];
         }
 
-        float horizontalOffset = -4.0f; // You can adjust this value as needed
+        float horizontalOffset = 3.0f; // You can adjust this value as needed
         for (var row = this.gameManager.BoardManager.GameBoard.GetLength(0) - 1; row >= 0; row--)
         {
             for (var column = 0; column < this.gameManager.BoardManager.GameBoard[row].Length; column++)
@@ -88,20 +88,32 @@ public class Manager : MonoBehaviour
     }
 
     private void FixedUpdate()
-{
-    if (this.gameover)
     {
-        return;
-    }
+        if (this.gameover)
+        {
+            return;
+        }
 
-    // Assuming gui.GetGameSpeed() returns a value that you now interpret as "seconds per step" instead of "steps per frame"
-    this.timeSinceLastStep += Time.fixedDeltaTime;
-    if (this.timeSinceLastStep >= 0.25f / this.gui.GetGameSpeed())
-    {
-        this.GameStep();
-        this.timeSinceLastStep = 0.0f; // Reset the accumulator
+        // Assuming gui.GetGameSpeed() returns a value that you now interpret as "seconds per step" instead of "steps per frame"
+        this.timeSinceLastStep += Time.fixedDeltaTime;
+        if (this.timeSinceLastStep >= 0.25f / this.gui.GetGameSpeed())
+        {
+            this.GameStep();
+            this.timeSinceLastStep = 0.0f; // Reset the accumulator
+        }
     }
-}
+    // private void FixedUpdate()
+    // {
+    //     for (var i = 0; i < this.gui.GetGameSpeed(); i++)
+    //     {
+    //         if (this.gameover)
+    //         {
+    //             return;
+    //         }
+
+    //         this.GameStep();
+    //     }
+    // }
 
     private void GameStep()
     {
